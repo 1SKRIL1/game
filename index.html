@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Морской бой</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Морской бой</h1>
+  <span id="conn" hidden>Нет связи, переподключаемся…</span>
+  <button id="mute" class="ghost">Звук: вкл</button>
+</header>
+
+<main class="stage">
+  <div class="screens">
+    <!-- Главное меню -->
+    <section id="menu" class="screen card">
+      <h2>Выйти в море</h2>
+      <label>Ваше имя<input id="name" maxlength="16" placeholder="Капитан"></label>
+      <div class="seg">
+        <label><input type="radio" name="mode" value="1v1" checked><span>1 на 1</span></label>
+        <label><input type="radio" name="mode" value="2v2"><span>2 на 2</span></label>
+      </div>
+      <button id="createBtn" class="primary">Создать комнату</button>
+      <p class="muted">Или войдите в чужую комнату по коду</p>
+      <div class="row">
+        <input id="codeInput" maxlength="6" placeholder="Код комнаты" autocapitalize="characters">
+        <button id="joinBtn">Войти</button>
+      </div>
+    </section>
+
+    <!-- Лобби -->
+    <section id="lobby" class="screen card" hidden>
+      <p class="muted">Код комнаты</p>
+      <div id="lCode" class="code"></div>
+      <button id="copyBtn" class="ghost">Копировать код</button>
+      <p>Режим: <b id="lMode"></b>. Игра начнётся, когда все соберутся.</p>
+      <ul id="lPlayers" class="players"></ul>
+      <button class="leave">Выйти из комнаты</button>
+    </section>
+
+    <!-- Расстановка -->
+    <section id="place" class="screen card" hidden>
+      <h2 id="pStatus"></h2>
+      <div id="pgrid" class="grid"></div>
+      <div id="placeTools">
+        <p class="muted">Выберите корабль, коснитесь клетки. Коснитесь поставленного корабля, чтобы убрать его.</p>
+        <div id="dock" class="dock"></div>
+        <div class="row">
+          <button id="rotBtn">Повернуть: горизонтально</button>
+          <button id="rndBtn">Случайно</button>
+          <button id="clrBtn">Очистить</button>
+        </div>
+        <button id="readyBtn" class="primary" disabled>Готов</button>
+      </div>
+      <button class="leave ghost">Выйти</button>
+    </section>
+
+    <!-- Бой -->
+    <section id="battle" class="screen" hidden>
+      <div class="bar"><div id="turn"></div><div id="timer" title="Секунд на ход">60</div></div>
+      <div class="boards">
+        <div class="card"><h3 id="enemyTitle"></h3><div id="enemyGrid" class="grid"></div></div>
+        <div class="card"><h3 id="ownTitle"></h3><div id="ownGrid" class="grid"></div></div>
+      </div>
+      <button class="leave ghost">Сдаться и выйти</button>
+    </section>
+
+    <!-- Результат -->
+    <section id="result" class="screen card" hidden>
+      <h2 id="resTitle"></h2>
+      <p id="resWhy"></p>
+      <div class="boards">
+        <div><h3>Ваше поле</h3><div id="rOwn" class="grid"></div></div>
+        <div><h3>Поле соперника</h3><div id="rEnemy" class="grid"></div></div>
+      </div>
+      <button class="leave primary">В главное меню</button>
+    </section>
+  </div>
+
+  <!-- Чат комнаты -->
+  <aside id="chat" class="card" hidden>
+    <h3>Чат</h3>
+    <div id="msgs"></div>
+    <form id="chatForm" class="row">
+      <input id="chatInput" maxlength="200" placeholder="Сообщение" autocomplete="off">
+      <button>Отправить</button>
+    </form>
+  </aside>
+</main>
+
+<div id="toast"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="client.js"></script>
+</body>
+</html>

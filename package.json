@@ -1,0 +1,12 @@
+{
+  "name": "battleship-online",
+  "version": "1.0.0",
+  "description": "Морской бой онлайн: 1v1 и 2v2 через Socket.io",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=16" },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  }
+}
